@@ -1,0 +1,26 @@
+[data-action] {
+  cursor: pointer;
+}
+
+#sorting th.sortby {
+  text-decoration: underline;
+}
+
+#list {
+  border-collapse: collapse;
+}
+
+#list tbody tr td {
+  padding: 4px;
+  
+}
+
+#list tbody tr:nth-child(odd) td {
+  background-color: lightblue;
+  border-right: rgb(240, 249, 255) 1px dotted;
+}
+
+#list tbody tr:nth-child(even) td {
+
+  border-right: rgb(171, 219, 252) 1px dotted;
+}
