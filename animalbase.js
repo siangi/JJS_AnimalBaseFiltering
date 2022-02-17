@@ -3,6 +3,7 @@
 window.addEventListener("DOMContentLoaded", start);
 
 let allAnimals = [];
+let displayedAnimals =[];
 
 // The prototype for all animals: 
 const Animal = {
@@ -15,7 +16,9 @@ const Animal = {
 function start( ) {
     console.log("ready");
 
-    // TODO: Add event-listeners to filter and sort buttons
+    document.querySelector("button[data-filter='cat']").onclick = onlyCatBtnClicked;
+    document.querySelector("button[data-filter='dog']").onclick = onlyDogBtnClicked;
+    document.querySelector("button[data-filter='*']").onclick = allAnimalsBtnClicked; 
 
     loadJSON();
 }
@@ -31,9 +34,10 @@ async function loadJSON() {
 
 function prepareObjects( jsonData ) {
     allAnimals = jsonData.map( preapareObject );
-
-    // TODO: This might not be the function we want to call first
-    displayList(allAnimals);
+    // when we start the application we show all animals
+    displayedAnimals = allAnimals;
+    
+    displayList(displayedAnimals);
 }
 
 function preapareObject( jsonObject ) {
@@ -48,6 +52,22 @@ function preapareObject( jsonObject ) {
     return animal;
 }
 
+function onlyDogBtnClicked(event){
+    displayFiltered(allAnimals, onlyDogsFilter);
+}
+
+function onlyCatBtnClicked(event){
+    displayFiltered(allAnimals, onlyCatsFilter);
+}
+
+function allAnimalsBtnClicked(event){
+    displayList(allAnimals);
+}
+
+function displayFiltered(base, filter){
+    displayedAnimals = base.filter(filter);
+    displayList(displayedAnimals)
+}
 
 function displayList(animals) {
     // clear the list
@@ -69,6 +89,14 @@ function displayAnimal( animal ) {
 
     // append clone to list
     document.querySelector("#list tbody").appendChild( clone );
+}
+
+function onlyDogsFilter(animal){
+    return (animal.type.toUpperCase() === "DOG");
+}
+
+function onlyCatsFilter(animal){
+    return (animal.type.toUpperCase() === "CAT");
 }
 
 
