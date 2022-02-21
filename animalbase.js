@@ -74,7 +74,23 @@ function animalSortingClicked(event) {
 
     let sortingResult = changeAnimalSorting(attribute);
 
+    setSortingStyle(event.target, sortingResult.sortOrder);
     event.target.setAttribute("data-sort-direction", sortingResult.sortOrder);
+}
+
+function setSortingStyle(currentSortingElement, sortOrder) {
+    let tableHeaders = document.querySelectorAll("#sorting>th");
+    for (let i = 0; i < tableHeaders.length; i++) {
+        tableHeaders[i].classList.remove("sortby");
+        tableHeaders[i].textContent = tableHeaders[i].textContent.replace("↑", "").replace("↓", "");
+    }
+
+    currentSortingElement.classList.add("sortby");
+    if (sortOrder === "asc") {
+        currentSortingElement.textContent += "↑";
+    } else {
+        currentSortingElement.textContent += "↓";
+    }
 }
 
 function changeAnimalSorting(newAttribute) {
